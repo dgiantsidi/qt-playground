@@ -28,6 +28,7 @@
 
 #include "../../qcustomplot.h"
 #include <QMainWindow>
+#include "/home/dimitra/workspace/qt-example/qt-playground.git/file-parser/file_parser.h"
 
 namespace Ui {
 class MainWindow;
@@ -48,6 +49,14 @@ private slots:
   void xAxisChanged(QCPRange range);
   //  void yAxisChanged(QCPRange range);
 
+public:
+#if 0
+  void set_file_parser(file_parser* ptr) {
+      p = ptr;
+  }
+#endif
+
+  file_parser* p = nullptr;
 private:
   Ui::MainWindow *ui;
 };

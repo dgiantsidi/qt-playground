@@ -24,11 +24,16 @@
  ****************************************************************************/
 
 #include "mainwindow.h"
+#include "/home/dimitra/workspace/qt-example/qt-playground.git/file-parser/file_parser.h"
 #include "ui_mainwindow.h"
+#include <QDebug>
 #include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
+
+  p = new file_parser("file.csv");
+  p->parse_file();
   ui->setupUi(this);
   setupPlot();
 
@@ -38,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent)
   // a scroll range -5..5 in floating point axis coordinates. if you want to
   // dynamically grow the range accessible with the scroll bar, just increase
   // the the minimum/maximum values of the scroll bars as needed.
-  ui->horizontalScrollBar->setRange(0, 30000000);
+  ui->horizontalScrollBar->setRange(0, (p->y.count() + 1) * p->timestep);
   //   ui->verticalScrollBar->setRange(0, 3);
 
   // create connection between axes and scroll bars:
@@ -60,11 +65,13 @@ MainWindow::~MainWindow() { delete ui; }
 
 void MainWindow::setupPlot() {
 
-  constexpr int nums = 300000;
+  const int nums = p->y.count(); // 300000;
+  qDebug() << "nums=" << nums << "\n";
   QVector<double> x(nums), y(nums); // initialize with entries 0..100
   for (int i = 0; i < nums; ++i) {
     x[i] = 100 * i; // x goes from -1 to 1
-    y[i] = i % 2;   // let's plot a quadratic function
+    y[i] = p->y[i]; // i % 2;   // let's plot a quadratic function
+    qDebug() << y[i] << " " << p->y[i] << "\n";
   }
   // The following plot setup is mostly taken from the plot demos:
   ui->plot->addGraph();
