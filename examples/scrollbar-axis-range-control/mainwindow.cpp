@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent)
   // a scroll range -5..5 in floating point axis coordinates. if you want to
   // dynamically grow the range accessible with the scroll bar, just increase
   // the the minimum/maximum values of the scroll bars as needed.
-  ui->horizontalScrollBar->setRange(0, 3000000);
+  ui->horizontalScrollBar->setRange(0, 30000000);
   //   ui->verticalScrollBar->setRange(0, 3);
 
   // create connection between axes and scroll bars:
@@ -60,7 +60,7 @@ MainWindow::~MainWindow() { delete ui; }
 
 void MainWindow::setupPlot() {
 
-  constexpr int nums = 30000;
+  constexpr int nums = 300000;
   QVector<double> x(nums), y(nums); // initialize with entries 0..100
   for (int i = 0; i < nums; ++i) {
     x[i] = 100 * i; // x goes from -1 to 1
@@ -108,16 +108,20 @@ void MainWindow::setupPlot() {
 
 void MainWindow::horzScrollBarChanged(int value) {
 
-  std::cout << value << "\n";
-  // if (qAbs(ui->plot->xAxis->range().center()-value/100.0) > 0.01) // if user
+  std::cout << value << " " << ui->plot->xAxis->range().size() << "\n";
+
+  if (qAbs(ui->plot->xAxis->range().center() - value / 100.0) > 0.01) // if user
   // is dragging plot, we don't want to replot twice
+  /*
   if (qAbs(ui->plot->xAxis->range().center() >
            value)) // if user is dragging plot, we don't want to replot twice
+  */
   {
     std::cout << "setRange() " << value << "  "
               << ui->plot->xAxis->range().size() << "\n";
+    // ui->plot->xAxis->setRange(value, value +
+    // ui->plot->xAxis->range().size());
     ui->plot->xAxis->setRange(value, value + ui->plot->xAxis->range().size());
-    // ui->plot->xAxis->setRange(value, ui->plot->xAxis->range().size());
     // ui->plot->xAxis->setRange(value/100.0, ui->plot->xAxis->range().size(),
     // Qt::AlignCenter);
     ui->plot->replot();
