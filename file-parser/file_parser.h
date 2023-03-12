@@ -16,7 +16,7 @@ public:
     fname = QString::fromStdString(filename);
   }
 
-  QVector<int> &parse_file() {
+  void parse_file() {
     QFile file(fname);
     if (!file.open(QIODevice::ReadOnly)) {
       qDebug() << file.errorString();
@@ -43,11 +43,10 @@ public:
     qDebug() << "TIMESTEP=" << timestep;
     qDebug() << "UNITS=" << units;
     qDebug() << y;
-    return y;
   }
 
-  bool flag;
   QVector<int> y;
+  bool flag;
   QString fname, units;
   int timestep;
 };
