@@ -2,3 +2,8 @@
 examples/*/*.o
 examples/*/moc_*
 examples/*/ui_*
+examples/scrollbar-axis-range-control/scrollbar-axis-range-control
+
+file-parser/main
+file-parser/*.o
+file-parser/*.csv
