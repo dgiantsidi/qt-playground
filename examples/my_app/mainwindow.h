@@ -28,7 +28,7 @@
 
 #include "../../qcustomplot.h"
 #include <QMainWindow>
-#include "/home/dimitra/workspace/qt-example/qt-playground.git/file-parser/file_parser.h"
+#include "../../file-parser/file_parser.h"
 
 namespace Ui {
 class MainWindow;

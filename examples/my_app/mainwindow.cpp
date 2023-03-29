@@ -24,7 +24,7 @@
  ****************************************************************************/
 
 #include "mainwindow.h"
-#include "/home/dimitra/workspace/qt-example/qt-playground.git/file-parser/file_parser.h"
+#include "../../file-parser/file_parser.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
 #include <iostream>
