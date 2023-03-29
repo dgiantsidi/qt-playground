@@ -39,10 +39,11 @@ public:
         y.append(std::atoi(line.split(';').first()));
       }
     }
-
+#if 0
     qDebug() << "TIMESTEP=" << timestep;
     qDebug() << "UNITS=" << units;
     qDebug() << y;
+#endif
   }
 
   QVector<int> y;
