@@ -4,3 +4,8 @@ QCustomPlot is a Qt C++ widget for plotting and data visualization. It has no fu
 Author: Emanuel Eichhammer
 
 QCustomPLot is under default license GPL, feel free to use QCP in free software! Visit https://www.qcustomplot.com for commertial license and more information!
+
+
+
+# Docker
+`QT_GRAPHICSSYSTEM="native" docker run -it --env DISPLAY=${DISPLAY} -v /tmp/.X11-unix:/tmp/.X11-unix <image-name>`
