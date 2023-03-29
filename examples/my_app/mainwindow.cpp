@@ -66,12 +66,12 @@ MainWindow::~MainWindow() { delete ui; }
 void MainWindow::setupPlot() {
 
   const int nums = p->y.count(); // 300000;
-  qDebug() << "nums=" << nums << "\n";
+  // qDebug() << "nums=" << nums << "\n";
   QVector<double> x(nums), y(nums); // initialize with entries 0..100
   for (int i = 0; i < nums; ++i) {
     x[i] = 100 * i; // x goes from -1 to 1
     y[i] = p->y[i]; // i % 2;   // let's plot a quadratic function
-    qDebug() << y[i] << " " << p->y[i] << "\n";
+    // qDebug() << y[i] << " " << p->y[i] << "\n";
   }
   // The following plot setup is mostly taken from the plot demos:
   ui->plot->addGraph();
@@ -92,7 +92,7 @@ void MainWindow::setupPlot() {
   ui->plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
   QSharedPointer<QCPAxisTickerFixed> fixedLongitudeTicker(
       new QCPAxisTickerFixed);
-  auto tick_step = 100; //(nums <= 20) ? 100 : nums*100/20;
+  auto tick_step = 10000; //(nums <= 20) ? 100 : nums*100/20;
   fixedLongitudeTicker->setTickStep(tick_step);
   fixedLongitudeTicker->setScaleStrategy(
       QCPAxisTickerFixed::ssNone); // and no scaling of the tickstep (like
@@ -115,7 +115,7 @@ void MainWindow::setupPlot() {
 
 void MainWindow::horzScrollBarChanged(int value) {
 
-  std::cout << value << " " << ui->plot->xAxis->range().size() << "\n";
+  // std::cout << value << " " << ui->plot->xAxis->range().size() << "\n";
 
   if (qAbs(ui->plot->xAxis->range().center() - value / 100.0) > 0.01) // if user
   // is dragging plot, we don't want to replot twice
@@ -124,8 +124,10 @@ void MainWindow::horzScrollBarChanged(int value) {
            value)) // if user is dragging plot, we don't want to replot twice
   */
   {
-    std::cout << "setRange() " << value << "  "
-              << ui->plot->xAxis->range().size() << "\n";
+    /*
+  std::cout << "setRange() " << value << "  "
+            << ui->plot->xAxis->range().size() << "\n";
+            */
     // ui->plot->xAxis->setRange(value, value +
     // ui->plot->xAxis->range().size());
     ui->plot->xAxis->setRange(value, value + ui->plot->xAxis->range().size());
@@ -147,7 +149,7 @@ void MainWindow::vertScrollBarChanged(int value)
 #endif
 
 void MainWindow::xAxisChanged(QCPRange range) {
-  std::cout << "setValue()" << qRound(range.center() * 100.0) << "\n";
+  // std::cout << "setValue()" << qRound(range.center() * 100.0) << "\n";
   ui->horizontalScrollBar->setValue(
       qRound(range.center() * 100.0)); // adjust position of scroll bar slider
   ui->horizontalScrollBar->setPageStep(
