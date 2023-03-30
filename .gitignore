@@ -2,6 +2,8 @@
 examples/*/*.o
 examples/*/moc_*
 examples/*/ui_*
+examples/*/Makefile
+examples/*/my_app
 
 file-parser/main
 file-parser/*.o
