@@ -2,9 +2,12 @@
 examples/*/*.o
 examples/*/moc_*
 examples/*/ui_*
-examples/scrollbar-axis-range-control/scrollbar-axis-range-control
-examples/scrollbar-axis-range-control/file.csv
 
 file-parser/main
 file-parser/*.o
 file-parser/*.csv
+
+gtest/Makefile
+gtest/*.o
+gtest/test
+gtest/example
