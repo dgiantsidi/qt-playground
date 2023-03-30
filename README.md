@@ -32,3 +32,12 @@ We used the following docker version `Docker version 20.10.21, build 20.10.21-0u
 `QT_GRAPHICSSYSTEM="native" docker run -it --rm --env DISPLAY=${DISPLAY} -v /tmp/.X11-unix:/tmp/.X11-unix example-docker bash -c "cd /home/myuser/app/examples/my_app && qmake && make -j && ./my_app"`
 ## To run the tests:
 `QT_GRAPHICSSYSTEM="native" docker run -it --rm --env DISPLAY=${DISPLAY} -v /tmp/.X11-unix:/tmp/.X11-unix example-docker bash -c "cd /home/myuser/app/gtest && bash ./build_static_libs.sh && cd /home/myuser/app/gtest && qmake && make -j && ./example`
+
+
+
+# Screenshots of execution and some notes
+
+We provide some screenshots of the app's execution in `examples/my_app/screenshots` directory. 
+As the file-data had too many data, we found practical to have a scrollbar so the user can clearly see the waves.
+We support zooming in to the data. We did not sanitize the data while parsising the file.
+We did some very basic testing on the file-parser to show the usage of google-test.
