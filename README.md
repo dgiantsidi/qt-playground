@@ -8,11 +8,12 @@ The code is developped and tested (natively) in an Ubuntu 18.04 LTS machine (x86
 You should install the following dependencies through your package manager `qt5-default qt5-doc qt5-doc-html qtbase5-doc-html libgtest-dev cmake`. You may ignore `libgtest-dev` and `cmake` if you do not want to run the tests. 
 
 ## Build and run
--`cd <src-dir>/examples/my_app`
 
--`qmake`
--`make -j4`
--`./myapp`
+To run the application:
+- `cd <src-dir>/examples/my_app`
+- `qmake`
+- `make -j4`
+- `./myapp`
 
 To run the test:
 - `cd <src-dir>/gtest`
