@@ -44,36 +44,27 @@ MainWindow::MainWindow(QWidget *parent)
   // dynamically grow the range accessible with the scroll bar, just increase
   // the the minimum/maximum values of the scroll bars as needed.
   ui->horizontalScrollBar->setRange(0, (p->y.count() + 1) * p->timestep);
-  //   ui->verticalScrollBar->setRange(0, 3);
 
   // create connection between axes and scroll bars:
   connect(ui->horizontalScrollBar, SIGNAL(valueChanged(int)), this,
           SLOT(horzScrollBarChanged(int)));
-  // connect(ui->verticalScrollBar, SIGNAL(valueChanged(int)), this,
-  // SLOT(vertScrollBarChanged(int)));
-  //  connect(ui->plot->xAxis, SIGNAL(rangeChanged(QCPRange)), this,
-  //  SLOT(xAxisChanged(QCPRange))); connect(ui->plot->yAxis,
-  //  SIGNAL(rangeChanged(QCPRange)), this, SLOT(yAxisChanged(QCPRange)));
 
   // initialize axis range (and scroll bar positions via signals we just
   // connected):
   ui->plot->xAxis->setRange(0, 20000);
-  // ui->plot->yAxis->setRange(0, 3, Qt::AlignCenter);
 }
 
 MainWindow::~MainWindow() { delete ui; }
 
 void MainWindow::setupPlot() {
 
-  const int nums = p->y.count(); // 300000;
-  // qDebug() << "nums=" << nums << "\n";
+  const int nums = p->y.count();    // 300000;
   QVector<double> x(nums), y(nums); // initialize with entries 0..100
   for (int i = 0; i < nums; ++i) {
     x[i] = 100 * i; // x goes from -1 to 1
-    y[i] = p->y[i]; // i % 2;   // let's plot a quadratic function
-    // qDebug() << y[i] << " " << p->y[i] << "\n";
+    y[i] = p->y[i];
   }
-  // The following plot setup is mostly taken from the plot demos:
+  // let's make the plot
   ui->plot->addGraph();
   ui->plot->graph()->setPen(QPen(Qt::blue));
   ui->plot->graph()->setBrush(QBrush(QColor(0, 0, 255, 20)));
@@ -85,14 +76,12 @@ void MainWindow::setupPlot() {
       left, top, right, bottom)); // add some more minimum space at bottom left
                                   // of rect for subfigure label (15 is default)
 
-  // customPlot->axisRect()->setBackground(QPixmap("./black_image.jpg"));
   ui->plot->graph()->setData(x, y);
   ui->plot->graph()->setLineStyle((QCPGraph::LineStyle)QCPGraph::lsStepLeft);
-  // ui->plot->axisRect()->setupFullAxesBox(true);
   ui->plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom);
   QSharedPointer<QCPAxisTickerFixed> fixedLongitudeTicker(
       new QCPAxisTickerFixed);
-  auto tick_step = 10000; //(nums <= 20) ? 100 : nums*100/20;
+  auto tick_step = 10000; // TODO: make it automatic based on the data-range
   fixedLongitudeTicker->setTickStep(tick_step);
   fixedLongitudeTicker->setScaleStrategy(
       QCPAxisTickerFixed::ssNone); // and no scaling of the tickstep (like
@@ -102,7 +91,6 @@ void MainWindow::setupPlot() {
   ui->plot->xAxis->setTickPen(QPen(Qt::black));
   auto &customPlot = ui->plot;
   customPlot->xAxis->grid()->setVisible(false);
-  //    customPlot->xAxis->setRange(0, (nums+1)*100);
   customPlot->yAxis->setRange(0, 2);
   customPlot->yAxis->grid()->setVisible(false);
 
@@ -115,24 +103,10 @@ void MainWindow::setupPlot() {
 
 void MainWindow::horzScrollBarChanged(int value) {
 
-  // std::cout << value << " " << ui->plot->xAxis->range().size() << "\n";
-
   if (qAbs(ui->plot->xAxis->range().center() - value / 100.0) > 0.01) // if user
   // is dragging plot, we don't want to replot twice
-  /*
-  if (qAbs(ui->plot->xAxis->range().center() >
-           value)) // if user is dragging plot, we don't want to replot twice
-  */
   {
-    /*
-  std::cout << "setRange() " << value << "  "
-            << ui->plot->xAxis->range().size() << "\n";
-            */
-    // ui->plot->xAxis->setRange(value, value +
-    // ui->plot->xAxis->range().size());
     ui->plot->xAxis->setRange(value, value + ui->plot->xAxis->range().size());
-    // ui->plot->xAxis->setRange(value/100.0, ui->plot->xAxis->range().size(),
-    // Qt::AlignCenter);
     ui->plot->replot();
   }
 }
@@ -149,7 +123,6 @@ void MainWindow::vertScrollBarChanged(int value)
 #endif
 
 void MainWindow::xAxisChanged(QCPRange range) {
-  // std::cout << "setValue()" << qRound(range.center() * 100.0) << "\n";
   ui->horizontalScrollBar->setValue(
       qRound(range.center() * 100.0)); // adjust position of scroll bar slider
   ui->horizontalScrollBar->setPageStep(
