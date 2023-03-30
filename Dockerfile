@@ -5,7 +5,7 @@ FROM ubuntu:18.04
 RUN apt-get update && apt-get upgrade -y sudo
 
 # Install any necessary packages
-RUN apt-get install -y build-essential qt5-default qt5-doc qt5-doc-html qtbase5-doc-html
+RUN apt-get install -y build-essential qt5-default qt5-doc qt5-doc-html qtbase5-doc-html libgtest-dev cmake
 
 RUN useradd -ms /bin/bash myuser
 RUN usermod -aG sudo myuser
