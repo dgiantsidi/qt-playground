@@ -8,4 +8,4 @@ QCustomPLot is under default license GPL, feel free to use QCP in free software!
 
 
 # Docker
-`QT_GRAPHICSSYSTEM="native" docker run -it --env DISPLAY=${DISPLAY} -v /tmp/.X11-unix:/tmp/.X11-unix <image-name>`
+`QT_GRAPHICSSYSTEM="native" docker run -it --rm --env DISPLAY=${DISPLAY} -v /tmp/.X11-unix:/tmp/.X11-unix example02 bash -c "cd /home/myuser/app/examples/my_app && qmake && make -j && ./my_app"`

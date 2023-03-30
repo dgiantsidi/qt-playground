@@ -22,5 +22,5 @@ USER myuser
 
 
 # Set the command to run when the container starts
-# CMD ["cd examples/my_app && qmake"]
+#CMD ["cd /home/myuser/app/examples/my_app && qmake && make -j"]
 
