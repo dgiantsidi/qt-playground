@@ -16,11 +16,11 @@ public:
     fname = QString::fromStdString(filename);
   }
 
-  void parse_file() {
+  int parse_file() {
     QFile file(fname);
     if (!file.open(QIODevice::ReadOnly)) {
       qDebug() << file.errorString();
-      exit(-1);
+      return -1;
     }
 
     while (!file.atEnd()) {
@@ -44,6 +44,7 @@ public:
     qDebug() << "UNITS=" << units;
     qDebug() << y;
 #endif
+    return 1;
   }
 
   QVector<int> y;
