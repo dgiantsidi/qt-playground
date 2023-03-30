@@ -1,21 +1,48 @@
 #include "../file-parser/file_parser.h"
 #include <gtest/gtest.h>
 
-// Function to test
-int Sum(int a, int b) { return a + b; }
-
 int parse(const std::string &fname) {
   file_parser a(fname);
 
   return a.parse_file();
 }
 
+int timestep_test(const std::string &fname) {
+  file_parser a(fname);
+  a.parse_file();
+  return a.ret_timestep();
+}
+
+int flag_test(const std::string &fname) {
+  file_parser a(fname);
+  a.parse_file();
+  return a.ret_flag();
+}
+
+QString units_test(const std::string &fname) {
+  file_parser a(fname);
+  a.parse_file();
+  return a.ret_units();
+}
+
 // Test case
-TEST(SumTest, PositiveNumbers) {
-  // EXPECT_EQ(5, Sum(2, 3));
-  // EXPECT_EQ(12, Sum(7, 5));
-  EXPECT_EQ(1, parse("../file-parser/file.csv"));
-  EXPECT_EQ(-1, parse("../file-parser/file1.csv"));
+TEST(Test1, CorrectFile) { EXPECT_EQ(1, parse("../file-parser/file.csv")); }
+
+TEST(Test2, InvalidFile) { EXPECT_EQ(-1, parse("../file-parser/file1.csv")); }
+
+TEST(Test3, CheckTimestamp) {
+  std::string fname("../file-parser/file.csv");
+  EXPECT_EQ(100, timestep_test(fname));
+}
+
+TEST(Test4, CheckFlag) {
+  std::string fname("../file-parser/file.csv");
+  EXPECT_EQ(1, flag_test(fname));
+}
+
+TEST(Test5, CheckUnits) {
+  std::string fname("../file-parser/file.csv");
+  EXPECT_EQ(QString("ns"), units_test(fname));
 }
 
 // Main function to run the tests

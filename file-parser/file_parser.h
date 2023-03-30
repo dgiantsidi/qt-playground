@@ -47,6 +47,10 @@ public:
     return 1;
   }
 
+  bool ret_flag() { return flag; }
+  const QString &ret_units() { return units; }
+  const int &ret_timestep() { return timestep; }
+  const QVector<int> &ret_y() { return y; }
   QVector<int> y;
   bool flag;
   QString fname, units;
